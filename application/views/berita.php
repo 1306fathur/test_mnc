@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <a href="" class="btn btn-primary mb-4 mr-5" data-toggle="modal" data-target="#NewMenuModal">Add New Menu</a>
-                <form action="<?= base_url('welcome/berita') ?>" method="POST">
+                <form action="<?= base_url('welcome/berita') ?>" method="GET">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit">Search</i></button>
                 </form>

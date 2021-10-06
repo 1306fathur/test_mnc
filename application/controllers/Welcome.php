@@ -87,13 +87,19 @@ class Welcome extends CI_Controller
 
 	public function nomor_4()
 	{
+		session_destroy();
+		// var_dump($_SESSION);
+		// die;
 		$this->load->view('login');
 	}
 
 	public function nomor_4_post()
 	{
-		// var_dump($this->input->post('email'));
+		// var_dump($_SESSION);
 		// die;
+		if (!$this->session->user) {
+			redirect('welcome/nomor_4');
+		}
 		$data = array(
 			'email'     => $this->input->post('email'),
 			'login_status' => 'Logged in'
@@ -113,15 +119,16 @@ class Welcome extends CI_Controller
 
 	public function berita()
 	{
-		$keyword = $this->input->post('search');
+		$keyword = $this->input->get('search');
 		if ($keyword === null) {
 
 			$data['beritas'] = $this->db->order_by('publish_date', 'ASC')->get('beritas')->result();
 		} else {
 			$data['beritas'] = $this->db->like('title', $keyword, 'both')
-			->or_like('description', $keyword, 'both')
-			->or_like('content', $keyword, 'both')
-			->order_by('publish_date', 'ASC')->get('beritas')->result();
+				->or_like('description', $keyword, 'both')
+				->or_like('content', $keyword, 'both')
+				->or_like('publish_date', $keyword, 'both')
+				->order_by('publish_date', 'ASC')->get('beritas')->result();
 		}
 
 		$this->load->view('berita', $data);
