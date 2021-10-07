@@ -8,12 +8,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Jawaban Test</title>
 </head>
 
 <body>
     <div class="container pt-5">
-        <h1>Hello, world!</h1>
+        <h1>Jawaban Test</h1>
 
         <div>
             <p class="font-weight-bold">Jawaban untuk test step 1 ada <a href="<?= base_url('step-1/step-1.pdf') ?>" target="_blank"> Disini </a></p>
