@@ -46,7 +46,7 @@
                                 <td><?= $berita->content ?></td>
                                 <td><?= $berita->publish_date ?></td>
                                 <td>
-                                    <a href="" class="badge badge-pill badge-success">Edit</a>
+                                    <a href="<?= base_url('welcome/berita_edit/') . $berita->id ?>" class="badge badge-pill badge-success">Edit</a>
                                     <a href="<?= base_url('welcome/berita_delete/') . $berita->id ?>" class="badge badge-danger" onclick="return confirm ('Yakin?');">Delete</a>
                                 </td>
                             </tr>

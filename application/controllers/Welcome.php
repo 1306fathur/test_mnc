@@ -97,9 +97,9 @@ class Welcome extends CI_Controller
 	{
 		// var_dump($_SESSION);
 		// die;
-		if (!$this->session->user) {
-			redirect('welcome/nomor_4');
-		}
+		// if (!$this->session->user) {
+		// 	redirect('welcome/nomor_4');
+		// }
 		$data = array(
 			'email'     => $this->input->post('email'),
 			'login_status' => 'Logged in'
@@ -119,16 +119,18 @@ class Welcome extends CI_Controller
 
 	public function berita()
 	{
+		var_dump($_SERVER['REQUEST_URI']);
+		die;
 		$keyword = $this->input->get('search');
 		if ($keyword === null) {
 
-			$data['beritas'] = $this->db->order_by('publish_date', 'ASC')->get('beritas')->result();
+			$data['beritas'] = $this->db->order_by('publish_date', 'DESC')->get('beritas')->result();
 		} else {
 			$data['beritas'] = $this->db->like('title', $keyword, 'both')
 				->or_like('description', $keyword, 'both')
 				->or_like('content', $keyword, 'both')
 				->or_like('publish_date', $keyword, 'both')
-				->order_by('publish_date', 'ASC')->get('beritas')->result();
+				->order_by('publish_date', 'DESC')->get('beritas')->result();
 		}
 
 		$this->load->view('berita', $data);
@@ -143,6 +145,27 @@ class Welcome extends CI_Controller
 		);
 
 		$this->db->insert('beritas', $data);
+		redirect('welcome/berita');
+	}
+
+	public function berita_edit($berita_id)
+	{
+		$data['berita'] = $this->db->order_by('publish_date', 'DESC')
+			->get_where('beritas', ['id' => $berita_id])->row();
+
+		$this->load->view('berita_edit', $data);
+	}
+
+	public function berita_update($berita_id)
+	{
+		$data = array(
+			'title' => $this->input->post('title'),
+			'description' => $this->input->post('description'),
+			'content' => $this->input->post('content'),
+		);
+
+		$this->db->where('id', $berita_id);
+		$this->db->update('beritas', $data);
 		redirect('welcome/berita');
 	}
 
