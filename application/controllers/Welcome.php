@@ -6,6 +6,11 @@ use GuzzleHttp\Client;
 class Welcome extends CI_Controller
 {
 
+	public function index()
+	{
+		$this->load->view('list');
+	}
+
 	public function nomor_1()
 	{
 		$genap = [];
@@ -87,7 +92,9 @@ class Welcome extends CI_Controller
 
 	public function nomor_4()
 	{
-		session_destroy();
+		if ($this->session->user) {
+			redirect('welcome/nomor_4_logged_in');
+		}
 		// var_dump($_SESSION);
 		// die;
 		$this->load->view('login');
@@ -97,15 +104,39 @@ class Welcome extends CI_Controller
 	{
 		// var_dump($_SESSION);
 		// die;
-		// if (!$this->session->user) {
-		// 	redirect('welcome/nomor_4');
-		// }
 		$data = array(
 			'email'     => $this->input->post('email'),
 			'login_status' => 'Logged in'
 		);
 		$this->session->set_userdata('user', $data);
+		redirect('welcome/nomor_4_logged_in');
+	}
+
+	public function nomor_4_logged_in()
+	{
+		// print_r($_SESSION['user']);
+		// die;
+		if (!$_SESSION['user']) {
+			redirect('welcome/nomor_4');
+		}
+
+		// var_dump($_SESSION);
+		// die;
+		// if (!$this->session->user) {
+		// 	redirect('welcome/nomor_4');
+		// }
+		// $data = array(
+		// 	'email'     => $this->input->post('email'),
+		// 	'login_status' => 'Logged in'
+		// );
+		// $this->session->set_userdata('user', $data);
 		$this->load->view('sudah_login');
+	}
+
+	public function logout()
+	{
+		session_destroy();
+		redirect('welcome/nomor_4');
 	}
 
 	public function nomor_5()
@@ -119,8 +150,8 @@ class Welcome extends CI_Controller
 
 	public function berita()
 	{
-		var_dump($_SERVER['REQUEST_URI']);
-		die;
+		// var_dump($_SERVER['REQUEST_URI']);
+		// die;
 		$keyword = $this->input->get('search');
 		if ($keyword === null) {
 

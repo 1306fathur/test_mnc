@@ -7,7 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <?php print_r($this->session->user) ?>
-    
+    <a>Email : <?= $_SESSION['user']['email'] ?></a>
+    <br>
+    <br>
+    <br>
+    <a>Status : <?= $_SESSION['user']['login_status'] ?></a>
+    <br>
+    <br>
+    <br>
+    <a href="<?= base_url('welcome/logout') ?>">Logout</a>
 </body>
 </html>
